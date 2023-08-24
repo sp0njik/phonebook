@@ -13,6 +13,7 @@ entry = {
 for num, item in entry.items():
     print(f'{num}: {item}')
 print()
+phone_book = PhoneBook(os.getcwd())
 user_input = 0
 while not (user_input == 5):
     try:
@@ -20,10 +21,9 @@ while not (user_input == 5):
     except ValueError:
         print('Enter a number')
     if user_input == 1:
-        PhoneBook.show_entries()
+        phone_book.show_entries(1)
     elif user_input == 2:
-        person = PhoneBook(os.getcwd())
-        person.add_entry(last_name=input('Enter last name: '), first_name=input('Enter first name: '),
+        phone_book.add_entry(last_name=input('Enter last name: '), first_name=input('Enter first name: '),
                          patronymic=input('Enter last patronymic: '), company=input('Enter company: '),
                          work_phone=int(input('Enter work phone number: ')),
                          personal_phone=int(input('Enter personal phone number: ')))

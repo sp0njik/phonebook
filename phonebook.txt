@@ -1,1 +1,1 @@
-last_name	|	first_name	|	patronymic	|	company	|	work_phone	|	personal_phone
+last_name	*2first_name	*2patronymic	*2company	*2work_phone	*2personal_phone

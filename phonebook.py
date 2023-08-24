@@ -24,7 +24,8 @@ class PhoneBook:
         if 1 > page_number > len(self.__data) / 5:
             raise ValueError('Please enter a valid page number')
         table_items = 'last_name', 'first_name', 'patronymic', 'company', 'work_phone', 'personal_phone'
-        table = '\t|\t'.join(table_items)
+
+        table = '\t   '.join(table_items) + '\n'
         start_entry_num = (page_number - 1) * 5
         if len(self.__data) == 0:
             f = open('phonebook.txt', 'w', encoding='utf8')
@@ -33,9 +34,14 @@ class PhoneBook:
             f.close()
         else:
             for entry in self.__data[start_entry_num:start_entry_num + 5]:
-                table += str(entry + 1) + '|' + '\t|\t'.join(self.__data[entry].values())
+                table += '\t\t'.join(map(str, (entry.values()))) + '\n'
                 f = open('phonebook.txt', 'w', encoding='utf8')
                 f.write(table)
                 f.flush()
                 f.close()
         print('Open file phonebook.txt')
+
+    def search_entries(self, contact: str) -> str:
+        for k in self.__data:
+            if contact == self.__data[k]:
+
