@@ -7,7 +7,7 @@ from prettytable import PrettyTable
 class PhoneBook:
     def __init__(self, path: str)-> None:
         # """
-        # Initializes a new instance of the class.
+        # Инициализирует новый экземпляр класса
         # """
         self.path: str = path
         self.__data: list[dict] = []
@@ -28,16 +28,16 @@ class PhoneBook:
         work_phone: int,
         personal_phone: int,
     )-> None:
-        #         """
-        #         Adds a new entry to the data list.
-        #         Args:
-        #             last_name (str): The last name of the person.
-        #             first_name (str): The first name of the person.
-        #             patronymic (str): The patronymic name of the person.
-        #             company (str): The company name of the person.
-        #             work_phone (int): The work phone number of the person.
-        #             personal_phone (int): The personal phone number of the person.
-        #         """
+#         """
+#         Добавляет новую запись в список данных.
+#         Аргументы:
+#         last_name (str): Фамилия человека.
+#         first_name (str): Имя человека.
+#         patronymic (str): Отчество человека.
+#         company (str): Название компании человека.
+#         work_phone (int): Рабочий телефон человека.
+#         personal_phone (int): Личный телефон человека.
+#         """
         entry = {
             "last_name": last_name,
             "first_name": first_name,
@@ -49,6 +49,11 @@ class PhoneBook:
         self.__data.append(entry)
 
     def show_entries(self, page_number: int) -> list[list]:
+#         """
+#         Показывает записи для указанного номера страницы.
+#         Аргументы: page_number (int): Номер страницы, для которой нужно показать записи.
+#         Возвращает: list[list]: Список списков, содержащий записи для указанной страницы.
+#         """
         if 1 > page_number > math.ceil(len(self.__data) / 5):
             raise ValueError("Please enter a valid page number")
         page_entries: list[list] = []
@@ -62,6 +67,11 @@ class PhoneBook:
         return page_entries
 
     def search_entry(self, param: str) -> list[list]:
+#       """
+#       Ищет параметр в данных и возвращает список списков, содержащих найденные записи.
+#       Аргументы: param: Параметр для поиска (тип: str)
+#       Возвращает: Список списков, содержащих найденные записи (тип: list[list])
+#       """
         found_entries: list[list] = []
         for index, entry in enumerate(self.__data):
             if param in list(entry.values()):
@@ -71,6 +81,11 @@ class PhoneBook:
         return found_entries
 
     def as_pretty_table(self, data_list: list[list]) -> PrettyTable:
+#         """
+#         Генерирует отформатированную таблицу из данного списка данных.
+#         Аргументы:  data_list (list[list]): Список списков, содержащий данные, которые будут отображены в таблице.
+#         Возвращает: PrettyTable: Отформатированная таблица, сгенерированная из заданных данных.
+#         """
         table: PrettyTable = PrettyTable()
         table.field_names: list = [
             "№",
@@ -86,14 +101,11 @@ class PhoneBook:
         return table
 
     def edit_entry(self, entry_num: int, new_entry_values: dict)-> None:
-        """
-        Edit an entry in the data list.
-        Parameters:
-            entry_num (int): The index of the entry to be edited.
-            new_entry_values (dict): The new values to update the entry with.
-        Raises:
-            ValueError: If the entry number is out of range.
-        """
+#         """
+#         Редактирует запись в данных с использованием предоставленного номера записи и новых значений.
+#         Аргументы: entry_num (int): Номер редактируемой записи.
+#                    new_entry_values (dict): Новые значения для обновления записи.
+#         """
         if not (1 <= entry_num <= len(self.__data)):
             raise ValueError("wrong entry number")
 
@@ -101,12 +113,20 @@ class PhoneBook:
         updating_entry.update(new_entry_values)
 
     def get_entry_by_num(self, entry_num: int) -> dict:
+#         """
+#         Получеает записи из __data на основе указанного номера записи.
+#         Аргументы: entry_num: Целое число, представляющее номер записи для извлечения.
+#         Возвращает: Словарь, представляющий данные записи.
+#         """
         if not (1 <= entry_num <= len(self.__data)):
             raise ValueError("wrong entry number")
 
         return self.__data[entry_num - 1]
 
     def close(self):
+#         """
+#         Закрывает файл, связанный с объектом, записывает JSON-представление данных в файл, а затем закрывает его.
+#         """
         f = open(self.path, "w", encoding="utf8")
         data = json.dumps(self.__data)
         f.write(data)
